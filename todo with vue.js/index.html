@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO's with VueJS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&family=Roboto:wght@100&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+</head>
+
+<body>
+  <div class="container" id="app">
+    <header>
+      <h1>{{ name }}</h1>
+      <div class="avatar"></div>
+    </header>
+
+    <div class="panel">
+      <input type="text" v-model="task" placeholder="Digite uma tarefa">
+      <button @click="addTask" class="add-task">+</button>
+    </div>
+
+    <h5 v-if="todos.length > 0">SUAS TAREFAS:</h5>
+
+    <h5 v-else>NÃO EXISTEM TAREFAS</h5>
+
+    <div v-for="(todo, index) in todos" :key="index">
+      <div class="task">
+        <div @click="toggleStatus(index)" class="status" :class="todo.status"></div>
+        <div class="text">{{ todo.title }}</div>
+        <img @click="toggleModal(index)" src="img/garbage.png" alt="Excluir" class="delete">
+      </div>
+    </div>
+
+    <div class="modal-layer" v-if="showModal">
+      <div class="modal">
+        <h4>CONFIRMA A EXCLUSÃO?</h4>
+        <p>{{ selectedTask.title }}</p>
+        <div class="buttons">
+          <button @click="toggleModal">CANCELAR</button>
+          <button @click="removeTask">CONFIRMAR</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
